@@ -1,0 +1,71 @@
+<html>
+
+    <head>
+        <link href="style.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <h1>
+            To-Do-List
+        </h1>
+
+        <form onsubmit="adicionarTarefa(event)">
+
+            <input placeholder="Adicionar nova tarefa" id="addTarefa"/>
+            
+            <button>
+                Adicionar
+            </button>
+
+        </form>
+
+        <ul id="listaDeTarefas">
+
+        </ul>
+
+    </body>
+
+    <script>
+
+        var tarefas = []
+
+        function adicionarTarefa(event) {
+            
+            // previnindo o comportamento padrão
+            event.preventDefault() 
+            
+            // buscando o input
+            var tarefa = document.getElementById("addTarefa")
+            
+            // adicionar tarefa ao array
+            tarefas.push(tarefa.value)
+            
+            // limpar o input
+            tarefa.value = ""
+
+            atualizarLista()
+        }   
+
+        function atualizarLista() {
+            var lista = document.getElementById("listaDeTarefas")
+            lista.innerHTML = ""
+
+            for (i = 0; i < tarefas.length; i++) {
+                var item = document.createElement("li")
+
+                item.innerHTML = "<span>" + tarefas[i] + "</span>" + `<span class='Excluir' onclick='excluirTarefa(${i})'>X</span>` 
+                lista.appendChild(item)
+            }
+            
+        }
+
+        function excluirTarefa(index) {
+            console.log(index)
+            tarefas.splice(index,1)
+            atualizarLista()
+        }
+
+    </script>
+
+</html>
